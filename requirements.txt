@@ -1,0 +1,7 @@
+cv2
+numpy
+imutils
+easyocr
+google.generativeai
+PIL
+os
