@@ -7,6 +7,26 @@ import google.generativeai as genai
 from PIL import Image
 import os
 
+def auto_crop(image):
+    # Convert the image to grayscale
+    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    
+    # Apply a binary threshold to create a binary image
+    _, binary = cv2.threshold(gray, 15, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)
+    
+    # Find contours in the binary image
+    contours, _ = cv2.findContours(binary, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    
+    # Find the contour with the largest area
+    max_contour = max(contours, key=cv2.contourArea)
+    
+    # Get the bounding box of the largest contour
+    x, y, w, h = cv2.boundingRect(max_contour)
+    
+    # Crop the original image using the bounding box coordinates
+    cropped_image = image[y:y+h, x:x+w]
+    
+    return cropped_image
 
 # Load the image
 image = cv2.imread('img/Morphy33.jpg')
