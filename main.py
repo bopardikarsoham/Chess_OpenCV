@@ -1,3 +1,13 @@
+import cv2
+import numpy as np
+import imutils
+import matplotlib.pyplot as plt
+import easyocr
+import google.generativeai as genai
+from PIL import Image
+import os
+
+
 # Load the image
 image = cv2.imread('img/Morphy33.jpg')
 
